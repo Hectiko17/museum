@@ -1,7 +1,5 @@
 <template>
   <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
     <Efemerides />
   </div>
 </template>
