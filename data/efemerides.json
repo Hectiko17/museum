@@ -2,36 +2,46 @@
   {
     "month": 1,
     "day": 28,
+    "year": 1853,
     "title": "Natalicio de José Martí",
     "description": "Nacimiento de José Martí, héroe nacional de Cuba.",
-    "location": "Nacional"
+    "province": "Nacional",
+    "tags": ["literatura", "política"]
   },
   {
     "month": 2,
     "day": 24,
+    "year": 1895,
     "title": "Grito de Baire",
     "description": "Inicio de la Guerra Necesaria (1895) con acciones en Baire.",
-    "location": "Nacional"
+    "province": "Nacional",
+    "tags": ["guerra", "independencia"]
   },
   {
     "month": 1,
     "day": 12,
-    "title": "Fundación de Las Tunas (día ejemplo)",
+    "year": 1876,
+    "title": "Fundación de Las Tunas (ejemplo)",
     "description": "Efeméride local de Las Tunas incluida como ejemplo.",
-    "location": "Las Tunas"
+    "province": "Las Tunas",
+    "tags": ["local", "fundación"]
   },
   {
     "month": 8,
     "day": 26,
+    "year": 1953,
     "title": "Asalto a los cuarteles Moncada",
     "description": "Asalto al cuartel Moncada (1953).",
-    "location": "Santiago de Cuba"
+    "province": "Santiago de Cuba",
+    "tags": ["revolución", "historia"]
   },
   {
     "month": 4,
     "day": 28,
+    "year": 2000,
     "title": "Hito local en Las Tunas (ejemplo)",
     "description": "Conmemoración cultural destacada en Las Tunas.",
-    "location": "Las Tunas"
+    "province": "Las Tunas",
+    "tags": ["cultura", "local"]
   }
 ]
