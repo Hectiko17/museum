@@ -1,7 +1,10 @@
 <template>
   <section class="efemerides">
     <div class="header">
-      <h2>Efemérides de Cuba</h2>
+      <div class="title">
+        <h2>Efemérides de Cuba</h2>
+        <p class="subtitle">Eventos nacionales y destacados de Las Tunas</p>
+      </div>
       <div class="controls">
         <input
           v-model="q"
@@ -12,10 +15,6 @@
           <option v-for="m in months" :key="m.value" :value="m.value">
             {{ m.name }}
           </option>
-        </select>
-        <select v-model="selectedProvince">
-          <option value="">Todas las provincias</option>
-          <option v-for="p in provinces" :key="p" :value="p">{{ p }}</option>
         </select>
       </div>
     </div>
@@ -38,10 +37,15 @@
             <div class="year">{{ e.year || "" }}</div>
           </div>
           <div class="card-body">
-            <h3>{{ e.title }}</h3>
+            <div class="card-top">
+              <h3>{{ e.title }}</h3>
+              <div class="badges">
+                <span v-if="isLocal(e)" class="badge local">Las Tunas</span>
+                <span v-else class="badge national">Nacional</span>
+              </div>
+            </div>
             <div class="meta">
-              {{ e.province || "—" }} •
-              <span class="tags">{{ (e.tags || []).join(", ") }}</span>
+              <span class="tags">{{ (e.tags || []).join(" • ") }}</span>
             </div>
             <p class="desc">{{ e.description }}</p>
           </div>
@@ -68,7 +72,6 @@ import { ref, computed, onMounted } from "vue";
 
 const q = ref("");
 const selectedMonth = ref(0);
-const selectedProvince = ref("");
 
 const months = [
   { value: 1, name: "Enero" },
@@ -85,10 +88,6 @@ const months = [
   { value: 12, name: "Diciembre" },
 ];
 
-const provinces = Array.from(
-  new Set(efemerides.map((e) => e.province).filter(Boolean))
-).sort();
-
 function monthName(m) {
   const found = months.find((x) => x.value === m);
   return found ? found.name : "";
@@ -104,12 +103,12 @@ const localHighlights = computed(() =>
     .sort((a, b) => a.month - b.month || a.day - b.day)
 );
 
+// Only show Nacional or Las Tunas
 const filtered = computed(() => {
   return efemerides
     .filter((e) => {
+      if (!(e.province === "Nacional" || isLocal(e))) return false;
       if (selectedMonth.value && e.month !== selectedMonth.value) return false;
-      if (selectedProvince.value && e.province !== selectedProvince.value)
-        return false;
       const text = (
         e.title +
         " " +
@@ -138,6 +137,18 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+  background: linear-gradient(90deg, #fff 0%, #fbfbff 50%);
+  padding: 0.6rem;
+  border-radius: 8px;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+}
+.subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #666;
 }
 .controls {
   display: flex;
@@ -176,10 +187,37 @@ onMounted(() => {
   margin-bottom: 0.6rem;
   background: #fff;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(20, 20, 20, 0.06);
 }
 .card.local {
   border-left: 4px solid #ffb74d;
   background: #fff7e6;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.badges {
+  display: flex;
+  gap: 0.4rem;
+}
+.badge {
+  padding: 0.18rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: #fff;
+}
+.badge.local {
+  background: #ff8a00;
+}
+.badge.national {
+  background: #4caf50;
 }
 .card-left {
   width: 64px;
