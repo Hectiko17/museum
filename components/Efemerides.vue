@@ -1,68 +1,79 @@
 <template>
-  <section class="efemerides">
-    <div class="header">
-      <div class="title">
-        <h2>Efemérides de Cuba</h2>
-        <p class="subtitle">Eventos nacionales y destacados de Las Tunas</p>
+  <section class="efemerides museum">
+    <header class="hero">
+      <div class="hero-left">
+        <h1 class="museum-title">Museo Local — Efemérides</h1>
+        <p class="hero-sub">Cronología nacional con énfasis en Las Tunas</p>
       </div>
-      <div class="controls">
+      <div class="hero-controls">
         <input
           v-model="q"
-          placeholder="Buscar efemérides (título, descripción, etiqueta)"
+          class="search"
+          placeholder="Buscar (título, descripción, etiqueta)"
         />
-        <select v-model.number="selectedMonth">
-          <option :value="0">Todos los meses</option>
+        <select v-model.number="selectedMonth" class="month-select">
+          <option :value="0">Mes (Todos)</option>
           <option v-for="m in months" :key="m.value" :value="m.value">
             {{ m.name }}
           </option>
         </select>
       </div>
-    </div>
+    </header>
 
-    <div class="grid">
-      <div class="list">
-        <div v-if="filtered.length === 0" class="none">
-          No se encontraron efemérides.
-        </div>
+    <main class="content">
+      <transition-group name="list" tag="div" class="cards">
         <article
           v-for="e in filtered"
           :key="e.title + e.month + e.day"
           class="card"
           :class="{ local: isLocal(e) }"
         >
-          <div class="card-left">
-            <div class="date">
-              {{ e.day }}<span>/{{ e.month }}</span>
-            </div>
+          <div class="card-date">
+            <div class="day">{{ e.day }}</div>
+            <div class="month">{{ monthName(e.month) }}</div>
             <div class="year">{{ e.year || "" }}</div>
           </div>
-          <div class="card-body">
-            <div class="card-top">
+          <div class="card-main">
+            <div class="card-header">
               <h3>{{ e.title }}</h3>
-              <div class="badges">
-                <span v-if="isLocal(e)" class="badge local">Las Tunas</span>
-                <span v-else class="badge national">Nacional</span>
+              <div class="chip" :class="isLocal(e) ? 'chip-local' : 'chip-nat'">
+                {{ isLocal(e) ? "Las Tunas" : "Nacional" }}
               </div>
             </div>
-            <div class="meta">
-              <span class="tags">{{ (e.tags || []).join(" • ") }}</span>
-            </div>
             <p class="desc">{{ e.description }}</p>
+            <div class="meta-row">
+              <div class="tags">
+                <span v-for="t in e.tags || []" :key="t" class="tag">{{
+                  t
+                }}</span>
+              </div>
+              <div class="more" aria-hidden>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </article>
-      </div>
+      </transition-group>
+
       <aside class="sidebar">
-        <h4>Destacadas — Las Tunas</h4>
-        <ul>
-          <li v-for="e in localHighlights" :key="e.title + e.day">
-            {{ monthName(e.month) }} {{ e.day }} — {{ e.title }}
-          </li>
-          <li v-if="localHighlights.length === 0">
-            No hay efemérides locales en los datos.
-          </li>
-        </ul>
+        <div class="side-card">
+          <h4>Destacadas — Las Tunas</h4>
+          <ol>
+            <li v-for="e in localHighlights" :key="e.title + e.day">
+              {{ monthName(e.month) }} {{ e.day }} — {{ e.title }}
+            </li>
+          </ol>
+        </div>
       </aside>
-    </div>
+    </main>
   </section>
 </template>
 
@@ -103,153 +114,225 @@ const localHighlights = computed(() =>
     .sort((a, b) => a.month - b.month || a.day - b.day)
 );
 
-// Only show Nacional or Las Tunas
 const filtered = computed(() => {
+  const qv = q.value.trim().toLowerCase();
   return efemerides
     .filter((e) => {
+      // only national or local
       if (!(e.province === "Nacional" || isLocal(e))) return false;
       if (selectedMonth.value && e.month !== selectedMonth.value) return false;
+      if (!qv) return true;
       const text = (
-        e.title +
+        (e.title || "") +
         " " +
         (e.description || "") +
         " " +
         (e.tags || []).join(" ")
       ).toLowerCase();
-      if (q.value && !text.includes(q.value.toLowerCase())) return false;
-      return true;
+      return text.includes(qv);
     })
     .sort((a, b) => a.month - b.month || a.day - b.day);
 });
 
 onMounted(() => {
-  console.log("Efemerides component mounted, events:", efemerides.length);
+  console.log("Efemerides mounted — total entries:", efemerides.length);
 });
 </script>
 
 <style scoped>
-.efemerides {
-  padding: 1rem;
-  font-family: system-ui, Arial, sans-serif;
+:root {
+  --bg: #f7f1ee; /* warm parchment */
+  --card: #fffdf9;
+  --accent: #3a1f78; /* royal purple */
+  --accent-2: #184e8b; /* royal blue accent */
+  --gold: #d4b24a; /* richer gold */
+  --muted: #594f4a;
+  --maroon: #6b2330;
 }
-.header {
+.museum {
+  background: linear-gradient(180deg, #fff9f0 0%, #f2eefc 100%);
+  padding: 1.4rem;
+  border-radius: 14px;
+  border: 1px solid rgba(58, 22, 83, 0.06);
+}
+.hero {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background: linear-gradient(90deg, #fff 0%, #fbfbff 50%);
-  padding: 0.6rem;
-  border-radius: 8px;
+  padding: 1.1rem;
+  background: linear-gradient(
+    90deg,
+    rgba(58, 31, 120, 0.06),
+    rgba(212, 178, 74, 0.04)
+  );
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(58, 22, 83, 0.06);
 }
-.title {
-  display: flex;
-  flex-direction: column;
-}
-.subtitle {
+.museum-title {
   margin: 0;
-  font-size: 0.9rem;
-  color: #666;
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: 1px;
+  font-family: "Georgia", serif;
 }
-.controls {
+.hero-sub {
+  margin: 0;
+  color: var(--maroon);
+  font-style: italic;
+}
+.hero-controls {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   align-items: center;
 }
-.controls input {
-  padding: 0.4rem 0.6rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+.search {
+  padding: 0.6rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid rgba(58, 31, 120, 0.08);
+  min-width: 260px;
+  background: linear-gradient(180deg, #fff, #fffaf3);
 }
-.controls select {
-  padding: 0.4rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+.month-select {
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(58, 31, 120, 0.08);
+  background: #fffdf9;
 }
-.grid {
-  display: flex;
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
   gap: 1rem;
   margin-top: 1rem;
 }
-.list {
-  flex: 3;
-}
-.sidebar {
-  flex: 1;
-  background: #fafafa;
-  padding: 0.6rem;
-  border: 1px solid #eee;
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 .card {
   display: flex;
-  gap: 0.8rem;
-  padding: 0.6rem;
-  border-radius: 8px;
-  margin-bottom: 0.6rem;
-  background: #fff;
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  gap: 1rem;
+  background: linear-gradient(180deg, var(--card), #fffaf6);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 36px rgba(58, 22, 83, 0.06);
+  align-items: flex-start;
+  border: 1px solid rgba(58, 22, 83, 0.04);
+  transition: transform 0.16s cubic-bezier(0.2, 0.9, 0.3, 1),
+    box-shadow 0.16s ease;
 }
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(20, 20, 20, 0.06);
+  transform: translateY(-8px);
+  box-shadow: 0 26px 60px rgba(58, 22, 83, 0.12);
 }
 .card.local {
-  border-left: 4px solid #ffb74d;
-  background: #fff7e6;
+  border-left: 6px solid var(--gold);
+  box-shadow: 0 12px 30px rgba(212, 178, 74, 0.06);
 }
-.card-top {
+.card-date {
+  width: 104px;
+  text-align: center;
+  color: var(--accent-2);
+  font-weight: 700;
+}
+.card-date .day {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+.card-date .month {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.card-date .year {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.card-main {
+  flex: 1;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 0.6rem;
+}
+.chip {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  color: #fff;
+}
+.chip-local {
+  background: linear-gradient(90deg, var(--gold), #e6c86a);
+  color: #2b1f00;
+  box-shadow: 0 4px 12px rgba(212, 178, 74, 0.12);
+}
+.chip-nat {
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  box-shadow: 0 6px 18px rgba(27, 59, 95, 0.08);
+}
+.desc {
+  color: #333;
+  margin: 0.5rem 0;
+}
+.meta-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
-.badges {
+.tags {
   display: flex;
   gap: 0.4rem;
+  flex-wrap: wrap;
 }
-.badge {
-  padding: 0.18rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  color: #fff;
+.tag {
+  background: linear-gradient(
+    90deg,
+    rgba(58, 31, 120, 0.06),
+    rgba(26, 70, 120, 0.03)
+  );
+  color: var(--accent-2);
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
 }
-.badge.local {
-  background: #ff8a00;
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
-.badge.national {
-  background: #4caf50;
+.side-card {
+  background: var(--card);
+  padding: 0.8rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(27, 59, 95, 0.03);
 }
-.card-left {
-  width: 64px;
-  text-align: center;
-  font-weight: 700;
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
 }
-.date {
-  font-size: 1.2rem;
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.26s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
-.date span {
-  font-weight: 400;
-  color: #666;
-  margin-left: 4px;
-}
-.year {
-  font-size: 0.85rem;
-  color: #777;
-}
-.card-body h3 {
-  margin: 0 0 4px 0;
-}
-.meta {
-  color: #888;
-  font-size: 0.85rem;
-  margin-bottom: 6px;
-}
-.desc {
-  margin: 0;
-  color: #444;
-}
-.none {
-  color: #666;
-  font-style: italic;
+
+@media (max-width: 900px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  .hero-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search {
+    min-width: unset;
+  }
 }
 </style>
