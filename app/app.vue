@@ -1,9 +1,18 @@
 <template>
-  <div>
-    <Efemerides />
-  </div>
+  <NuxtPage />
 </template>
 
-<script setup>
-import Efemerides from "../components/Efemerides.vue";
-</script>
+<style>
+@import './assets/main.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: white;
+}
+</style>

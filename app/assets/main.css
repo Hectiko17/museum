@@ -1,0 +1,236 @@
+/* ====================================
+   🟢⚪🔴 LAS TUNAS - ESTILOS OFICIALES
+   ==================================== */
+
+/* VERDE: #009B3A 
+   ROJO:  #CE1126  
+   BLANCO: #FFFFFF */
+
+/* ---------- CONTENEDORES ---------- */
+.tunas-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  padding: 1.5rem;
+}
+
+.tunas-card {
+  background: #FFFFFF;
+  border: 2px solid #009B3A;
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 12px 32px rgba(0, 155, 58, 0.08);
+}
+
+/* ---------- TIPOGRAFÍA ---------- */
+.tunas-title {
+  color: #CE1126;
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.tunas-subtitle {
+  color: #009B3A;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ---------- FORMULARIOS ---------- */
+.tunas-label {
+  display: block;
+  color: #009B3A;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.tunas-input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #1E1E1E;
+  background: #FFFFFF;
+  transition: all 0.2s ease;
+  margin-bottom: 1.2rem;
+}
+
+.tunas-input:focus {
+  border-color: #009B3A;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 155, 58, 0.1);
+}
+
+.tunas-input::placeholder {
+  color: #AAAAAA;
+  font-size: 0.9rem;
+}
+
+/* ---------- BOTONES ---------- */
+.tunas-btn {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: #CE1126;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.tunas-btn:hover {
+  background: #a50e1f;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(206, 17, 38, 0.2);
+}
+
+.tunas-btn:disabled {
+  opacity: 0.6;
+  transform: none;
+  cursor: not-allowed;
+}
+
+.tunas-btn-secondary {
+  background: transparent;
+  color: #009B3A;
+  border: 1.5px solid #009B3A;
+}
+
+.tunas-btn-secondary:hover {
+  background: #009B3A;
+  color: white;
+}
+
+/* ---------- MENSAJES ---------- */
+.tunas-success {
+  background: #E8F5E9;
+  border: 1px solid #009B3A;
+  color: #009B3A;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tunas-error {
+  background: #FFEBEE;
+  border: 1px solid #CE1126;
+  color: #CE1126;
+  padding: 0.9rem;
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ---------- ENLACES ---------- */
+.tunas-link {
+  color: #009B3A;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.tunas-link:hover {
+  color: #CE1126;
+  text-decoration: underline;
+}
+
+.tunas-text-muted {
+  color: #666666;
+  font-size: 0.85rem;
+}
+
+/* ---------- DASHBOARD ---------- */
+.tunas-header {
+  background: white;
+  border-bottom: 2px solid #009B3A;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tunas-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #CE1126;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.tunas-logo span {
+  background: #009B3A;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.tunas-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.tunas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.tunas-dashboard-card {
+  background: white;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.tunas-dashboard-card:hover {
+  border-color: #009B3A;
+  box-shadow: 0 8px 24px rgba(0, 155, 58, 0.08);
+  transform: translateY(-4px);
+}
+
+.tunas-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.tunas-badge {
+  background: #FFEBEE;
+  color: #CE1126;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
