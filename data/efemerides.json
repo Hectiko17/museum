@@ -1,47 +1,34 @@
 [
   {
+    "id": 1,
+    "title": "Nacimiento de Vicente García",
+    "description": "Nace en Las Tunas el Mayor General Vicente García González, el 'León de Santa Rita'",
+    "day": 23,
     "month": 1,
-    "day": 28,
-    "year": 1853,
-    "title": "Natalicio de José Martí",
-    "description": "Nacimiento de José Martí, héroe nacional de Cuba.",
-    "province": "Nacional",
-    "tags": ["literatura", "política"]
+    "year": 1833,
+    "province": "Las Tunas",
+    "municipality": "Las Tunas",
+    "tags": ["natalicio", "mambi", "mayor general"],
+    "historicalPeriod": "Guerras de Independencia",
+    "century": 19,
+    "decade": 1830,
+    "type": "natalicio"
   },
   {
-    "month": 2,
-    "day": 24,
-    "year": 1895,
-    "title": "Grito de Baire",
-    "description": "Inicio de la Guerra Necesaria (1895) con acciones en Baire.",
-    "province": "Nacional",
-    "tags": ["guerra", "independencia"]
-  },
-  {
-    "month": 1,
-    "day": 12,
+    "id": 2,
+    "title": "Toma de Las Tunas",
+    "description": "Las fuerzas mambisas al mando de Vicente García toman la ciudad de Las Tunas",
+    "day": 23,
+    "month": 9,
     "year": 1876,
-    "title": "Fundación de Las Tunas (ejemplo)",
-    "description": "Efeméride local de Las Tunas incluida como ejemplo.",
     "province": "Las Tunas",
-    "tags": ["local", "fundación"]
-  },
-  {
-    "month": 8,
-    "day": 26,
-    "year": 1953,
-    "title": "Asalto a los cuarteles Moncada",
-    "description": "Asalto al cuartel Moncada (1953).",
-    "province": "Santiago de Cuba",
-    "tags": ["revolución", "historia"]
-  },
-  {
-    "month": 4,
-    "day": 28,
-    "year": 2000,
-    "title": "Hito local en Las Tunas (ejemplo)",
-    "description": "Conmemoración cultural destacada en Las Tunas.",
-    "province": "Las Tunas",
-    "tags": ["cultura", "local"]
+    "municipality": "Las Tunas",
+    "tags": ["acción bélica", "toma", "mambi"],
+    "historicalPeriod": "Guerra de los Diez Años",
+    "century": 19,
+    "decade": 1870,
+    "type": "efemeride"
   }
+  
+  
 ]
