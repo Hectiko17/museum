@@ -39,9 +39,6 @@
             Registrate
           </NuxtLink>
         </p>
-        <NuxtLink to="/efemerides" class="tunas-link" style="display: block; margin-top: 1rem;">
-          📅 Ver Efemérides
-        </NuxtLink>
       </div>
     </div>
   </div>
