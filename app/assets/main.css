@@ -6,6 +6,20 @@
    ROJO:  #CE1126  
    BLANCO: #FFFFFF */
 
+
+/* ---------- GLOBAL ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: white;
+}
+
+
 /* ---------- CONTENEDORES ---------- */
 .tunas-page {
   min-height: 100vh;
@@ -26,6 +40,13 @@
   box-shadow: 0 12px 32px rgba(0, 155, 58, 0.08);
 }
 
+.tunas-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+
 /* ---------- TIPOGRAFÍA ---------- */
 .tunas-title {
   color: #CE1126;
@@ -45,6 +66,16 @@
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+
+.page-title {
+  color: #CE1126;
+  font-size: 2rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #009B3A;
+}
+
 
 /* ---------- FORMULARIOS ---------- */
 .tunas-label {
@@ -79,6 +110,20 @@
   color: #AAAAAA;
   font-size: 0.9rem;
 }
+
+.tunas-search-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #E0E0E0;
+  border-radius: 30px;
+  width: 200px;
+  outline: none;
+}
+
+.tunas-search-input:focus {
+  border-color: #009B3A;
+  box-shadow: 0 0 0 3px rgba(0, 155, 58, 0.1);
+}
+
 
 /* ---------- BOTONES ---------- */
 .tunas-btn {
@@ -119,52 +164,24 @@
   color: white;
 }
 
-/* ---------- MENSAJES ---------- */
-.tunas-success {
-  background: #E8F5E9;
-  border: 1px solid #009B3A;
-  color: #009B3A;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.tunas-error {
-  background: #FFEBEE;
-  border: 1px solid #CE1126;
+.tunas-btn-logout {
+  background: transparent;
   color: #CE1126;
-  padding: 0.9rem;
-  border-radius: 12px;
-  margin-bottom: 1.2rem;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  border: 1.5px solid #CE1126;
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-/* ---------- ENLACES ---------- */
-.tunas-link {
-  color: #009B3A;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
+.tunas-btn-logout:hover {
+  background: #CE1126;
+  color: white;
 }
 
-.tunas-link:hover {
-  color: #CE1126;
-  text-decoration: underline;
-}
 
-.tunas-text-muted {
-  color: #666666;
-  font-size: 0.85rem;
-}
-
-/* ---------- DASHBOARD ---------- */
+/* ---------- NAVBAR ---------- */
 .tunas-header {
   background: white;
   border-bottom: 2px solid #009B3A;
@@ -174,7 +191,8 @@
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0, 155, 58, 0.08);
 }
 
 .tunas-logo {
@@ -194,12 +212,36 @@
   font-size: 0.9rem;
 }
 
-.tunas-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.nav-center {
+  display: flex;
+  gap: 2rem;
 }
 
+.nav-link {
+  color: #666;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #009B3A;
+}
+
+.nav-link.active {
+  color: #CE1126;
+  border-bottom: 3px solid #CE1126;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+
+/* ---------- CARDS Y GRIDS ---------- */
 .tunas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -233,4 +275,260 @@
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+/* Cards para museos */
+.museos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.museo-card {
+  background: white;
+  border: 1px solid #E0E0E0;
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.museo-card:hover {
+  border-color: #009B3A;
+  box-shadow: 0 8px 24px rgba(0, 155, 58, 0.12);
+  transform: translateY(-4px);
+}
+
+.museo-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.museo-card h2 {
+  color: #CE1126;
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.museo-card h3 {
+  color: #CE1126;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0.3rem 0;
+}
+
+.museo-ubicacion {
+  color: #009B3A;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+
+.museo-direccion {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.museo-contacto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  color: #888;
+  border-top: 1px solid #EEE;
+  padding-top: 1rem;
+}
+
+.card-title {
+  color: #CE1126;
+  font-size: 1.1rem;
+  margin: 0.5rem 0 0.3rem 0;
+}
+
+.card-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+
+/* ---------- SECCIONES ---------- */
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  color: #CE1126;
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+
+/* ---------- WELCOME CARD ---------- */
+.welcome-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: #F9F9F9;
+  padding: 2rem;
+  border-radius: 16px;
+  margin-bottom: 3rem;
+  border-left: 6px solid #009B3A;
+}
+
+.welcome-avatar {
+  width: 64px;
+  height: 64px;
+  background: #E8F5E9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.welcome-title {
+  color: #CE1126;
+  font-size: 2rem;
+  font-weight: 300;
+  margin: 0;
+}
+
+.welcome-subtitle {
+  color: #009B3A;
+  margin: 0.3rem 0 0 0;
+}
+
+
+/* ---------- COMING SOON ---------- */
+.coming-soon {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #F9F9F9;
+  border-radius: 24px;
+  border: 2px dashed #009B3A;
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.coming-soon h2 {
+  color: #CE1126;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.coming-soon p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+
+/* ---------- MENSAJES ---------- */
+.tunas-success {
+  background: #E8F5E9;
+  border: 1px solid #009B3A;
+  color: #009B3A;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tunas-error {
+  background: #FFEBEE;
+  border: 1px solid #CE1126;
+  color: #CE1126;
+  padding: 0.9rem;
+  border-radius: 12px;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+/* ---------- ENLACES ---------- */
+.tunas-link {
+  color: #009B3A;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.tunas-link:hover {
+  color: #CE1126;
+  text-decoration: underline;
+}
+
+.tunas-text-muted {
+  color: #666666;
+  font-size: 0.85rem;
+}
+
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .tunas-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .nav-center {
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .museos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .tunas-header {
+    padding: 0.8rem;
+  }
+  
+  .nav-center {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .nav-right {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .tunas-search-input {
+    width: 100%;
+  }
+  
+  .museos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .welcome-card {
+    flex-direction: column;
+    text-align: center;
+  }
 }
