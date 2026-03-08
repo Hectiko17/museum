@@ -1,65 +1,89 @@
 <template>
   <div>
-    <header class="tunas-header">
+    <nav class="tunas-header">
       <div class="tunas-logo">
         <span>🏛️</span>
         Museo Local
       </div>
-      <button @click="cerrarSesion" class="tunas-btn-secondary tunas-btn" style="width: auto;">
-        Cerrar sesión
-      </button>
-    </header>
+
+      <div class="nav-center">
+        <NuxtLink to="/dashboard" class="nav-link active">Home</NuxtLink>
+        <NuxtLink to="/efemerides" class="nav-link">Efemérides</NuxtLink>
+        <NuxtLink to="/organigrama" class="nav-link">Organigrama</NuxtLink>
+        <NuxtLink to="/eventos" class="nav-link">Eventos</NuxtLink>
+      </div>
+
+      <div class="nav-right">
+        <input 
+          type="text" 
+          v-model="busqueda"
+          placeholder="Buscar..."
+          class="tunas-search-input"
+          @keyup.enter="buscar"
+        />
+        <button @click="cerrarSesion" class="tunas-btn-logout">
+          Cerrar sesión
+        </button>
+      </div>
+    </nav>
 
     <main class="tunas-container">
-      <div class="tunas-card" style="max-width: 100%;">
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
-          <div style="background: #E8F5E9; padding: 0.8rem 1.2rem; border-radius: 999px;">
-            <span style="color: #009B3A; font-size: 1.5rem;">👤</span>
-          </div>
-          <div>
-            <h1 style="color: #CE1126; font-size: 1.8rem; font-weight: 300; margin: 0;">
-              ¡Bienvenido!
-            </h1>
-            <p style="color: #009B3A; margin: 0;">
-              Has iniciado sesión correctamente
-            </p>
-          </div>
+      <div class="welcome-card">
+        <div class="welcome-avatar">👤</div>
+        <div>
+          <h1 class="welcome-title">¡Bienvenido!</h1>
+          <p class="welcome-subtitle">Has iniciado sesión correctamente</p>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Provincias destacadas</h2>
+          <NuxtLink to="/organigrama" class="tunas-link">Ver todas →</NuxtLink>
         </div>
 
         <div class="tunas-grid">
-          <NuxtLink to="/efemerides" class="tunas-dashboard-card" style="text-decoration: none;">
-            <div class="tunas-icon">📅</div>
-            <h3 style="color: #CE1126; margin-bottom: 0.5rem;">Efemérides</h3>
-            <p style="color: #666; margin: 0; font-size: 0.9rem;">
-              Explorá la historia de Las Tunas
-            </p>
-          </NuxtLink>
-
-          <div class="tunas-dashboard-card" style="opacity: 0.7;">
-            <div class="tunas-icon">🖼️</div>
-            <h3 style="color: #009B3A; margin-bottom: 0.5rem;">Colecciones</h3>
-            <p style="color: #666; margin: 0; font-size: 0.9rem;">
-              Próximamente
-            </p>
-            <span class="tunas-badge">Pronto</span>
-          </div>
-
-          <div class="tunas-dashboard-card" style="opacity: 0.7;">
-            <div class="tunas-icon">🎭</div>
-            <h3 style="color: #009B3A; margin-bottom: 0.5rem;">Eventos</h3>
-            <p style="color: #666; margin: 0; font-size: 0.9rem;">
-              Próximamente
-            </p>
-            <span class="tunas-badge">Pronto</span>
+          <div 
+            v-for="provincia in provincias.slice(0, 4)" 
+            :key="provincia.nombre" 
+            class="tunas-dashboard-card"
+            @click="irAProvincia(provincia.nombre)"
+          >
+            <div class="tunas-icon">🗺️</div>
+            <h3 class="card-title">{{ provincia.nombre }}</h3>
+            <p class="card-text">{{ provincia.municipios.length }} municipios</p>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import { provincias } from '../assets/data'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const busqueda = ref('')
+
+const buscar = () => {
+  if (busqueda.value.trim()) {
+    alert(`Buscando: ${busqueda.value}`)
+  }
+}
+
+const irAProvincia = (nombre) => {
+  router.push(`/${encodeURIComponent(nombre)}`)
+}
+
 const cerrarSesion = () => {
   window.location.href = '/'
 }
 </script>
+
+<style scoped>
+.tunas-dashboard-card {
+  cursor: pointer;
+}
+</style>
